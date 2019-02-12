@@ -2,5 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/deimon/Programacion/Java/Punta Cronos/racecheck-display/lib/javaFX/javafx.graphics.jar"/>
+	<classpathentry kind="lib" path="/home/deimon/Programacion/Java/Punta Cronos/racecheck-display/lib/javaFX/javafx.fxml.jar"/>
+	<classpathentry kind="lib" path="/home/deimon/Programacion/Java/Punta Cronos/racecheck-display/lib/javaFX/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="/home/deimon/Programacion/Java/Punta Cronos/racecheck-display/lib/javaFX/javafx.base.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
