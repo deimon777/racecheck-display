@@ -7,25 +7,37 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.util.Scanner;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 
 public class UtilsFile {
 	public File source;
 	public File dest;
 
 	public void copyFile(File source, File dest) {
+
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(null);
 		try {
 			Files.copy(source.toPath(), dest.toPath());
 		} catch (FileAlreadyExistsException e) {
+			System.out.println("El archivo ya existe");
 			dest.delete();
 			try {
 				Files.copy(source.toPath(), dest.toPath());
 			} catch (IOException e1) {
-				e1.printStackTrace();
+				alert.setContentText("Ooops!!! El archivo existia y no se pudo copiar");
+				alert.showAndWait();
+				// e1.printStackTrace();
+				System.out.println("Error: " + e1.toString());
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			alert.setContentText("Ooops!!! Error desconocido");
+			alert.showAndWait();
+			// e.printStackTrace();
 			System.out.println("Error: " + e.toString());
-			System.out.println("No se peude copiar");
 		}
 	}
 
@@ -34,11 +46,18 @@ public class UtilsFile {
 		String first = "", second = "";
 		Scanner input1 = null;
 		Scanner input2 = null;
+		
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(null);
 		try {
 			input1 = new Scanner(source);
 			input2 = new Scanner(dest);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			alert.setContentText("Ooops!!! Archivo no encontrado");
+			alert.showAndWait();
+			// e.printStackTrace();
+			System.out.println("Error: " + e.toString());
 		}
 
 		while (input1.hasNextLine() || input2.hasNextLine()) {

@@ -13,6 +13,8 @@ import java.util.List;
 import com.deimon.racecheck.gui.Display;
 
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class WatchFile extends Thread {
 	// private BlockingQueue<Message> queue;
@@ -26,29 +28,36 @@ public class WatchFile extends Thread {
 	WatchService watchService;
 	boolean escuchando = true;
 
-	public WatchFile() {
-	}
+	//	public WatchFile() {
+	//	}
 
-	public WatchFile(String name, String path) {
-		System.out.println("WatchFile");
-		this.name = name;
-		this.path = Paths.get(path);
-
-		display = new Display();
-
-		try {
-			watchService = this.path.getFileSystem().newWatchService();
-			this.path.register(
-					watchService, StandardWatchEventKinds.ENTRY_CREATE,
-					StandardWatchEventKinds.ENTRY_DELETE,
-					StandardWatchEventKinds.ENTRY_MODIFY);
-		} catch (IOException e) {
-			System.out.println("Error: " + e.toString());
-		} catch (Exception e) {
-			// e.printStackTrace();
-			System.out.println("Error: " + e.toString());
-		}
-	}
+	//	public WatchFile(String name, String path) {
+	//		System.out.println("WatchFile");
+	//		this.name = name;
+	//		this.path = Paths.get(path);
+	//
+	//		display = new Display();
+	//
+	//		Alert alert = new Alert(AlertType.WARNING);
+	//		alert.setTitle("Cuidado");
+	//		alert.setHeaderText(null);
+	//		try {
+	//			watchService = this.path.getFileSystem().newWatchService();
+	//			this.path.register(
+	//					watchService, StandardWatchEventKinds.ENTRY_CREATE,
+	//					StandardWatchEventKinds.ENTRY_DELETE,
+	//					StandardWatchEventKinds.ENTRY_MODIFY);
+	//		} catch (IOException e) {
+	//			alert.setContentText("Ooops!!! Error de entrada/salida");
+	//			alert.showAndWait();
+	//			System.out.println("Error: " + e.toString());
+	//		} catch (Exception e) {
+	//			// e.printStackTrace();
+	//			alert.setContentText("Ooops!!! Error sin solución");
+	//			alert.showAndWait();
+	//			System.out.println("Error: " + e.toString());
+	//		}
+	//	}
 
 	public WatchFile(String name, String path, Display display) {
 		System.out.println("WatchFile");
@@ -57,6 +66,9 @@ public class WatchFile extends Thread {
 
 		this.display = display;
 
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Cuidado");
+		alert.setHeaderText(null);
 		try {
 			watchService = this.path.getFileSystem().newWatchService();
 			this.path.register(
@@ -64,9 +76,13 @@ public class WatchFile extends Thread {
 					StandardWatchEventKinds.ENTRY_DELETE,
 					StandardWatchEventKinds.ENTRY_MODIFY);
 		} catch (IOException e) {
+			alert.setContentText("Ooops!!! Error de entrada/salida");
+			alert.showAndWait();
 			System.out.println("Error: " + e.toString());
 		} catch (Exception e) {
 			// e.printStackTrace();
+			alert.setContentText("Ooops!!! Error sin solución");
+			alert.showAndWait();
 			System.out.println("Error: " + e.toString());
 		}
 	}

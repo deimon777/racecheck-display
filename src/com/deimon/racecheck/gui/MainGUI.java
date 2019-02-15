@@ -12,6 +12,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 //import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
@@ -23,7 +25,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class MainGUI {
-	
+
 	String fileName = null;
 	File filePath = null;
 	Stage stage = new Stage();
@@ -102,6 +104,12 @@ public class MainGUI {
 					}
 				} else {
 					System.out.println("Seleccionar un archivo .racecheck");
+					
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Falta el archivo");
+					alert.setHeaderText(null);
+					alert.setContentText("Seleccionar un archivo .racecheck");
+					alert.showAndWait();
 				}
 			}
 		};
@@ -119,7 +127,7 @@ public class MainGUI {
 		root.setBottom(comenzar);
 		Scene scene = new Scene(root, 800, 500);
 
-		URL dark = this.getClass().getResource("resource/dark.css");
+		URL dark = this.getClass().getResource("resource/modena_dark.css");
 		URL css = this.getClass().getResource("resource/main.css");
 		scene.getStylesheets().clear();
 		scene.getStylesheets().addAll(dark.toExternalForm(), css.toExternalForm());

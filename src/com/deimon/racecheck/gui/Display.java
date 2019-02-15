@@ -132,7 +132,7 @@ public class Display {
 
 		root.getChildren().addAll(top, name, time);
 		stage.setScene(scene);
-		URL dark = this.getClass().getResource("resource/dark.css");
+		URL dark = this.getClass().getResource("resource/modena_dark.css");
 		URL css = this.getClass().getResource("resource/display.css");
 		scene.getStylesheets().clear();
 		scene.getStylesheets().addAll(dark.toExternalForm(), css.toExternalForm());
@@ -156,11 +156,12 @@ public class Display {
 	}
 
 
-
 	/**********/
+	
 	public void setName(String name) {
 		textName.setText(name);
 	}
+	
 	public void setTime(String time) {
 		textTime.setText(time);
 	}
