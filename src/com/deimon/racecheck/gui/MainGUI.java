@@ -3,7 +3,7 @@ package com.deimon.racecheck.gui;
 import java.io.File;
 import java.net.URL;
 
-import com.deimon.racecheck.gui.menu.MyMenu;
+//import com.deimon.racecheck.gui.menu.MyMenu;
 import com.deimon.racecheck.utils.WatchFile;
 
 import javafx.event.ActionEvent;
@@ -13,7 +13,7 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
+//import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;

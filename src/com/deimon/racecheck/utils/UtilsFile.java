@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 
 public class UtilsFile {

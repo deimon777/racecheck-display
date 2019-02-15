@@ -9,10 +9,8 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
 
 import com.deimon.racecheck.gui.Display;
-import com.deimon.racecheck.gui.DisplayThread;
 
 import javafx.application.Platform;
 
