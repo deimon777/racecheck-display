@@ -23,11 +23,14 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class MainGUI {
+	
 	String fileName = null;
 	File filePath = null;
 	Stage stage = new Stage();
 
 	public MainGUI() {
+		Display display = new Display();		
+
 		BorderPane root = new BorderPane();
 		stage.setTitle("Display - Punta Cronos");
 		stage.setResizable(false);
@@ -39,26 +42,22 @@ public class MainGUI {
 		Button btnAbrir = new Button("Abrir");
 		Text nombreArchivo = new Text("");
 
-		EventHandler<ActionEvent> eventAbrir = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Racecheck", "*.racecheck");
-				FileChooser.ExtensionFilter extTodo = new FileChooser.ExtensionFilter("Todo los archivos", "*.*");
-				FileChooser fileChooser = new FileChooser();
-				fileChooser.getExtensionFilters().addAll(extFilter,extTodo);
-				fileChooser.setTitle("Abrir Archivo");
-				File file = fileChooser.showOpenDialog(null);
-				if (file != null) {
-					fileName = file.getName();
-					filePath = file.getParentFile();
-					System.out.println(fileName);
-					System.out.println(filePath);
-					// System.out.println(file.getPath());
-					nombreArchivo.setText(fileName);
-				}
+		btnAbrir.setOnAction(e -> {
+			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Racecheck", "*.racecheck");
+			FileChooser.ExtensionFilter extTodo = new FileChooser.ExtensionFilter("Todo los archivos", "*.*");
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.getExtensionFilters().addAll(extFilter,extTodo);
+			fileChooser.setTitle("Abrir Archivo");
+			File file = fileChooser.showOpenDialog(null);
+			if (file != null) {
+				fileName = file.getName();
+				filePath = file.getParentFile();
+				System.out.println(fileName);
+				System.out.println(filePath);
+				// System.out.println(file.getPath());
+				nombreArchivo.setText(fileName);
 			}
-		};
-		btnAbrir.setOnAction(eventAbrir);
-
+		});
 
 		abrir.getChildren().addAll(btnAbrir,nombreArchivo);
 		/*********************************/
@@ -85,13 +84,19 @@ public class MainGUI {
 			public void handle(ActionEvent e) {
 				if (fileName != null && filePath != null) {
 					if(corriendo != true) {
-						wf = new WatchFile(fileName, filePath.toString());
+						wf = new WatchFile(fileName, filePath.toString(),display);
 						wf.start();
+
 						btnComenzar.setText("Parar");
+						display.start();
+						// inicia la pantalla con los valores por default 
+						display.setName("Corredor");
+						display.setTime("00:00:00.000");
 						corriendo = true;
 						System.out.println("Corriendo!");
 					}else {
 						wf.interrupt();
+						display.interrupt();
 						btnComenzar.setText("Comenzar");
 						corriendo = false;
 					}
@@ -106,10 +111,10 @@ public class MainGUI {
 		/*********************************/
 		/**** MENU ***********************/
 		/*********************************/
-		MyMenu myMenu = new MyMenu();
-		MenuBar menu = myMenu.getMenu();
+		// MyMenu myMenu = new MyMenu();
+		// MenuBar menu = myMenu.getMenu();
 
-		root.setTop(menu);
+		// root.setTop(menu);
 		root.setCenter(abrir);
 		root.setBottom(comenzar);
 		Scene scene = new Scene(root, 800, 500);
