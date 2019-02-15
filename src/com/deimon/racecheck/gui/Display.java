@@ -25,8 +25,11 @@ import javafx.stage.Stage;
 
 public class Display {
 	Stage stage = new Stage();
+	public Label textName;
+	public Label textTime;
 
 	public Display() {
+		System.out.println("Display");
 		VBox root = new VBox();
 		stage.setTitle("Display - Punta Cronos");
 		Scene scene = new Scene(root, 800, 500);
@@ -59,7 +62,7 @@ public class Display {
 		HBox name = new HBox();
 		name.prefHeightProperty().bind(stage.heightProperty().multiply(0.20));
 		name.setAlignment(Pos.CENTER);
-		Label textName = new Label();
+		textName = new Label();
 		textName.setText("Nombre del corredor");
 		textName.setTextFill(Color.ORANGERED);
 		Font fontName = Font.font("Serif", 100);
@@ -71,7 +74,9 @@ public class Display {
 		achicarName.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				textName.setFont(Font.font("Serif", FontWeight.BOLD, textName.getFont().getSize() - 10));
+				if(textName.getFont().getSize()>10) {
+					textName.setFont(Font.font("Serif", FontWeight.BOLD, textName.getFont().getSize() - 10));
+				}
 			}
 		});
 		MenuItem agrandarName = new MenuItem("Agrandar");
@@ -87,14 +92,14 @@ public class Display {
 		contextName.getItems().addAll(achicarName, agrandarName);
 		textName.setContextMenu(contextName);
 		/* Fin Menu contextual */
-		
+
 		/*********************************/
 		/**** TIME ***********************/
 		/*********************************/
 		HBox time = new HBox();
 		time.prefHeightProperty().bind(stage.heightProperty().multiply(0.65));
 		time.setAlignment(Pos.CENTER);
-		Label textTime = new Label();
+		textTime = new Label();
 		textTime.setText("00:00:00.000");
 		textTime.setTextFill(Color.LAWNGREEN);
 		Font fontTime = Font.font("Serif", FontWeight.BOLD, 250);
@@ -106,7 +111,9 @@ public class Display {
 		achicarTime.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				textTime.setFont(Font.font("Serif", FontWeight.BOLD, textTime.getFont().getSize() - 10));
+				if(textTime.getFont().getSize()>10) {
+					textTime.setFont(Font.font("Serif", FontWeight.BOLD, textTime.getFont().getSize() - 10));
+				}
 			}
 		});
 		MenuItem agrandarTime = new MenuItem("Agrandar");
@@ -122,7 +129,7 @@ public class Display {
 		contextTime.getItems().addAll(achicarTime, agrandarTime);
 		textTime.setContextMenu(contextTime);
 		/* Fin Menu contextual */
-		
+
 		root.getChildren().addAll(top, name, time);
 		stage.setScene(scene);
 		URL dark = this.getClass().getResource("resource/dark.css");
@@ -131,16 +138,31 @@ public class Display {
 		scene.getStylesheets().addAll(dark.toExternalForm(), css.toExternalForm());
 	}
 
-	public void show() {
+	public void start() {
+		System.out.println("Display Start");
+		// super.start();
 		stage.show();
-	}
-	
-	/************************/
-	public void setName(String name) {
-		
-	}
-	public void setTime(String time) {
-		
+
 	}
 
+	public void interrupt(){
+		System.out.println("Display Interrupt");
+		stage.close();
+	}
+
+	public void hide() {
+		stage.hide();	
+		System.out.println("Display Hide");
+	}
+
+
+
+	/**********/
+	public void setName(String name) {
+		textName.setText(name);
+	}
+	public void setTime(String time) {
+		textTime.setText(time);
+	}
+	
 }
