@@ -43,7 +43,7 @@ public class MenuAction {
 
 				case TextGUI.MOSTRAR:
 					Display display = new Display();
-					display.show();
+					display.start();
 					break;
 
 				default:
