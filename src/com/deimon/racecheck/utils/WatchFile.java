@@ -9,6 +9,7 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.List;
+import java.util.Map;
 
 import com.deimon.racecheck.gui.Display;
 
@@ -126,13 +127,17 @@ public class WatchFile extends Thread {
 						System.out.println("My file has changed");
 						System.out.println("-----");
 
-						String[] info = util.compareFile(source, fileTmp);
+						Map<String, String> info = util.compareFile(source, fileTmp);
 
 						Platform.runLater(new Runnable() {
 							@Override public void run() {
 								if(info != null) { //controlar aca
-									display.setName(info[0]);
-									display.setTime(info[1]);
+									display.setName(info.get("nombre").toString());
+									display.setModality(info.get("modalidad").toString());
+									display.setCategory(info.get("categoria").toString());
+									display.setPosition(info.get("posicion").toString());
+									display.setPositionCategory(info.get("pos.cat").toString());
+									display.setTime(info.get("tiempo").toString());
 								}
 							}
 						});
