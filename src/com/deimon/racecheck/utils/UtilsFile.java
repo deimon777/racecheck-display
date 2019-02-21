@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import javafx.scene.control.Alert;
@@ -16,7 +18,6 @@ public class UtilsFile {
 	public File dest;
 
 	public void copyFile(File source, File dest) {
-
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
 		alert.setHeaderText(null);
@@ -34,26 +35,26 @@ public class UtilsFile {
 				System.out.println("Error: " + e1.toString());
 			}
 		} catch (IOException e) {
-			alert.setContentText("Ooops!!! Error desconocido");
+			alert.setContentText("Ooops!!! Error desconocido, reiniciar");
 			alert.showAndWait();
 			// e.printStackTrace();
 			System.out.println("Error: " + e.toString());
 		}
 	}
 
-	public String[] compareFile(File source, File dest) {
-		String[] out = null;
+	public Map<String, String> compareFile(File source, File dest) {
+		Map<String, String> out = null;
 		String first = "", second = "";
 		Scanner input1 = null;
 		Scanner input2 = null;
-		
+
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
 		alert.setHeaderText(null);
 		try {
 			input1 = new Scanner(source);
 			input2 = new Scanner(dest);
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) {			
 			alert.setContentText("Ooops!!! Archivo no encontrado");
 			alert.showAndWait();
 			// e.printStackTrace();
@@ -68,7 +69,7 @@ public class UtilsFile {
 				second = input2.nextLine();
 			}
 			if (!first.equals(second)) {
-				//				System.out.println("Differences found: " + "\nF:" + first + "\nS:" + second);
+				//	System.out.println("Differences found: " + "\nF:" + first + "\nS:" + second);
 				out = this.parseText(first);
 				break;
 			}
@@ -79,15 +80,22 @@ public class UtilsFile {
 	public static void cleanFile(File f) {
 	}
 
-	private String[] parseText(String txt) {
+	private Map<String, String> parseText(String txt) {
 		//controlar por si llega un txt vacio o nulo
 		String[] parts = txt.split("\\|");
-		System.out.println(parts.length);
-//		for (int i = 0; i < parts.length; i++) {
-//			System.out.println(i+") "+parts[i]);
-//		}
-		/*el 1 y 2l 6 me sirven*/
-		return new String[] {parts[1],parts[6]};
+		Map<String, String> out = new HashMap<String, String>();
+		//;SEXO|NOMBRE|CHIP|DORSAL|MODALIDAD|CATEGORIA|TIEMPO|POSICION|POS.CAT.|RITMO
+		out.put("sexo",parts[0]);
+		out.put("nombre",parts[1]);
+		out.put("chip",parts[2]);
+		out.put("dorsal",parts[3]);
+		out.put("modalidad",parts[4]);
+		out.put("categoria",parts[5]);
+		out.put("tiempo",parts[6]);
+		out.put("posicion",parts[7]);
+		out.put("pos.cat",parts[8]);
+		out.put("ritmo",parts[9]);
+		return out;
 	}
 
 }
