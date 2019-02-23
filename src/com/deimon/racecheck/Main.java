@@ -10,7 +10,6 @@ public class Main<T> extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {		
 		MainGUI gui = new MainGUI();
-	    // System.out.println("El directorio temporal del sistema es "+ System.getProperty("java.io.tmpdir"));
 		gui.show();
 	}
 

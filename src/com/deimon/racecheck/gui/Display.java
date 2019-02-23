@@ -32,7 +32,7 @@ public class Display {
 	public Label categoria;
 
 	public Display() {
-		System.out.println("Display");
+		// System.out.println("Display");
 		VBox root = new VBox();
 		stage.setTitle("Display - Punta Cronos");
 		Scene scene = new Scene(root, 800, 500);
@@ -236,20 +236,20 @@ public class Display {
 	}
 
 	public void start() {
-		System.out.println("Display Start");
+		// System.out.println("Display Start");
 		// super.start();
 		stage.show();
 
 	}
 
 	public void interrupt(){
-		System.out.println("Display Interrupt");
+		// System.out.println("Display Interrupt");
 		stage.close();
 	}
 
 	public void hide() {
 		stage.hide();	
-		System.out.println("Display Hide");
+		// System.out.println("Display Hide");
 	}
 
 	/**********/
