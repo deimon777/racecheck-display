@@ -23,12 +23,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class MainGUI {
 
 	String fileName = null;
 	File filePath = null;
 	Stage stage = new Stage();
+	WatchFile wf = null;
+	boolean corriendo = false;
 
 	public MainGUI() {
 		Display display = new Display();		
@@ -54,10 +57,10 @@ public class MainGUI {
 			if (file != null) {
 				fileName = file.getName();
 				filePath = file.getParentFile();
-				System.out.println(fileName);
-				System.out.println(filePath);
+				// System.out.println(filePath);
+				// System.out.println(fileName);
 				// System.out.println(file.getPath());
-				nombreArchivo.setText(fileName);
+				nombreArchivo.setText(" "+filePath+"\\"+fileName);
 			}
 		});
 
@@ -81,8 +84,6 @@ public class MainGUI {
 		btnComenzar.setFont(fontComenzar);
 		btnComenzar.setPadding(new Insets(20));
 		EventHandler<ActionEvent> eventComenzar = new EventHandler<ActionEvent>() {
-			boolean corriendo = false;
-			WatchFile wf = null;
 			public void handle(ActionEvent e) {
 				if (fileName != null && filePath != null) {
 					if(corriendo != true) {
@@ -103,8 +104,8 @@ public class MainGUI {
 						corriendo = false;
 					}
 				} else {
-					System.out.println("Seleccionar un archivo .racecheck");
-					
+					// System.out.println("Seleccionar un archivo .racecheck");
+
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Falta el archivo");
 					alert.setHeaderText(null);
@@ -137,6 +138,16 @@ public class MainGUI {
 
 	public void show() {
 		stage.show();
-	}
 
+		/* Accion al cerrar la aplicacion completamente */
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			public void handle(WindowEvent we) {
+				if(corriendo) {
+					wf.interrupt();
+				}
+				// System.out.println("Aplicacion Cerrada");
+			}
+		});
+		
+	}
 }
