@@ -33,7 +33,7 @@ public class WatchFile extends Thread {
 	//	}
 
 	//	public WatchFile(String name, String path) {
-	//		System.out.println("WatchFile");
+	//		// System.out.println("WatchFile");
 	//		this.name = name;
 	//		this.path = Paths.get(path);
 	//
@@ -51,53 +51,58 @@ public class WatchFile extends Thread {
 	//		} catch (IOException e) {
 	//			alert.setContentText("Ooops!!! Error de entrada/salida");
 	//			alert.showAndWait();
-	//			System.out.println("Error: " + e.toString());
+	//			// System.out.println("Error: " + e.toString());
 	//		} catch (Exception e) {
 	//			// e.printStackTrace();
 	//			alert.setContentText("Ooops!!! Error sin solución");
 	//			alert.showAndWait();
-	//			System.out.println("Error: " + e.toString());
+	//			// System.out.println("Error: " + e.toString());
 	//		}
 	//	}
 
 	public WatchFile(String name, String path, Display display) {
-		System.out.println("WatchFile");
+		// System.out.println("WatchFile");
 		this.name = name;
 		this.path = Paths.get(path);
 
 		this.display = display;
 
 		Alert alert = new Alert(AlertType.WARNING);
-		alert.setTitle("Cuidado");
 		alert.setHeaderText(null);
 		try {
 			watchService = this.path.getFileSystem().newWatchService();
 			this.path.register(
-					watchService, StandardWatchEventKinds.ENTRY_CREATE,
+					watchService, 
+					StandardWatchEventKinds.ENTRY_CREATE,
 					StandardWatchEventKinds.ENTRY_DELETE,
 					StandardWatchEventKinds.ENTRY_MODIFY);
 		} catch (IOException e) {
-			alert.setContentText("Ooops!!! Error de entrada/salida");
+			// alert.setContentText("Ooops!!! Error de entrada/salida - WatchFile");
+			alert.setTitle("Cuidado - WatchFile IOException");
+			alert.setContentText(e.toString());
 			alert.showAndWait();
-			System.out.println("Error: " + e.toString());
+			// System.out.println("Error: " + e.toString());
 		} catch (Exception e) {
-			// e.printStackTrace();
-			alert.setContentText("Ooops!!! Error sin solución");
+			// alert.setContentText("Ooops!!! Error sin solución - WatchFile");
+			alert.setTitle("Cuidado - WatchFile Exception");
+			alert.setContentText(e.toString());
 			alert.showAndWait();
-			System.out.println("Error: " + e.toString());
+			e.printStackTrace();
+			// System.out.println("Error: " + e.toString());
 		}
 	}
 
 	@Override
 	public synchronized void start() {
-		System.out.println("WatchFile Start");
+		// System.out.println("WatchFile Start");
 		util = new UtilsFile();
 
 		escuchando = true;
+
 		//display.start();
 		source = new File(this.path+"/"+this.name);
-		fileTmp = new File(System.getProperty("java.io.tmpdir")+"/"+this.name+"2");
-
+		//fileTmp = new File(System.getProperty("java.io.tmpdir")+this.name+"~");
+		fileTmp = new File(this.path+"/_"+this.name);
 		util.copyFile(source,fileTmp);
 		super.start();
 	}
@@ -105,9 +110,7 @@ public class WatchFile extends Thread {
 	@Override
 	public void run() {
 		// super.run();
-		System.out.println("WatchFile Run");
-		// Message msg = new Message();
-
+		// System.out.println("WatchFile Run");
 		while (escuchando) {
 			WatchKey watchKey = null;
 			List<WatchEvent<?>> events = null;
@@ -116,7 +119,8 @@ public class WatchFile extends Thread {
 				events = watchKey.pollEvents();
 			} catch (InterruptedException e) {
 				escuchando = false;
-				// System.out.println("Error: " + e.toString());
+				//e.printStackTrace();
+				// System.out.println("Error WF (run): " + e.toString());
 			}
 			Path changed;
 			if(events != null) {
@@ -124,8 +128,8 @@ public class WatchFile extends Thread {
 					changed = (Path) event.context();
 					if (changed.toString().equals(this.name)) {
 						// if (changed.endsWith(this.name)) {
-						System.out.println("My file has changed");
-						System.out.println("-----");
+						// System.out.println("Archivo modificado");
+						// System.out.println("-----");
 
 						Map<String, String> info = util.compareFile(source, fileTmp);
 
@@ -141,7 +145,11 @@ public class WatchFile extends Thread {
 								}
 							}
 						});
+
+						// fileTmp.delete();
+						// System.out.println("copiando");
 						util.copyFile(source, fileTmp);
+						// System.out.println("ya copio");
 					}
 					// System.out.println("Modificado: "+changed);
 				}
@@ -151,12 +159,12 @@ public class WatchFile extends Thread {
 				}
 			}
 		}
-		System.out.println("WatchFile - Salio del while");
+		// System.out.println("WatchFile - Salio del while");
 	}
 
 	@Override
 	public void interrupt() {
-		System.out.println("WatchFile Interrupt");
+		// System.out.println("WatchFile Interrupt");
 		fileTmp.delete();
 		escuchando = false;
 		//display.interrupt();
