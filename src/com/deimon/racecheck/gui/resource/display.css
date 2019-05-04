@@ -1,5 +1,41 @@
-.top{}
+#display{
+    -fx-background-color: #CCCCCC;
+}
 
-.name{}
 
-.time{}
+
+#head-box{
+    -fx-background-color: #BBBBBB;
+}
+#head-box .title{
+    -fx-fill: #008000;
+}
+
+
+
+#name-box{
+}
+#name-name.label .text{
+    -fx-fill: #003000;
+}
+
+
+
+#info-box{
+}
+.info-aux.label .text{
+    -fx-fill: #005000;
+}
+.info-info.label .text{
+    -fx-fill: #005000;
+}
+
+
+
+#time-box{
+}
+#time.label .text{
+    -fx-fill: #CA0E0E;
+    -fx-stroke: #991818;
+    -fx-stroke-width: 3; 
+}

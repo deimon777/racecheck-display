@@ -11,6 +11,10 @@
 ## Instrucciones de construcción
 1. Próximamente para windows y linux
 
+
+## Licencia
+
+Licenciado bajo la [licencia del MIT](./LICENSE).
 ---
 
 ## English
@@ -19,3 +23,8 @@
 
 ## Instrucciones de construcción
 1. Coming soon for windows and linux
+
+
+## License
+
+Licensed under the [MIT License](./LICENSE).

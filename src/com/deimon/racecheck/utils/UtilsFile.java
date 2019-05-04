@@ -91,7 +91,7 @@ public class UtilsFile {
 				second = input2.nextLine();
 			}
 			if (!first.equals(second)) {
-				System.out.println("Diferencias: " + "\nF:" + first + "\nS:" + second+ "\n-------");
+				// System.out.println("Diferencias: " + "\nF:" + first + "\nS:" + second+ "\n-------");
 				out = this.parseText(first);
 				break;
 			}
@@ -110,35 +110,16 @@ public class UtilsFile {
 		try {
 			String charsetTo = "ISO-8859-1";
 			String charsetFrom = "windows-1252";
-			String aux = new String(parts[0].getBytes(charsetTo), charsetFrom);
-			out.put("sexo",aux);
-			
-			aux = new String(parts[1].getBytes(charsetTo), charsetFrom);			
-			out.put("nombre",aux);
-			
-			aux = new String(parts[2].getBytes(charsetTo), charsetFrom);
-			out.put("chip",aux);
-			
-			aux = new String(parts[3].getBytes(charsetTo), charsetFrom);
-			out.put("dorsal",aux);
-			
-			aux = new String(parts[4].getBytes(charsetTo), charsetFrom);
-			out.put("modalidad",aux);
-			
-			aux = new String(parts[5].getBytes(charsetTo), charsetFrom);
-			out.put("categoria",aux);
-			
-			aux = new String(parts[6].getBytes(charsetTo), charsetFrom);
-			out.put("tiempo",aux);
-			
-			aux = new String(parts[7].getBytes(charsetTo), charsetFrom);
-			out.put("posicion",aux);
-			
-			aux = new String(parts[8].getBytes(charsetTo), charsetFrom);
-			out.put("pos.cat",aux);
-			
-			aux = new String(parts[9].getBytes(charsetTo), charsetFrom);
-			out.put("ritmo",aux);
+			out.put("sexo",parts[0]);
+			out.put("nombre",new String(parts[1].getBytes(charsetTo), charsetFrom));			
+			out.put("chip",parts[2]);			
+			out.put("dorsal",parts[3]);			
+			out.put("modalidad",parts[4]);			
+			out.put("categoria",parts[5]);			
+			out.put("tiempo",parts[6]);
+			out.put("posicion",parts[7]);
+			out.put("pos.cat",parts[8]);
+			out.put("ritmo",parts[9]);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

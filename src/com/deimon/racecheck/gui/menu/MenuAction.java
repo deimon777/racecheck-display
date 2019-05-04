@@ -24,7 +24,7 @@ public class MenuAction {
 				String side = mItem.getText();
 				switch (side) {
 
-				case TextGUI.ABRIR:
+				case TextMenu.ABRIR:
 					FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Racecheck", "*.racecheck");
 					FileChooser.ExtensionFilter extTodo = new FileChooser.ExtensionFilter("Todo los archivos", "*.*");
 					FileChooser fileChooser = new FileChooser();
@@ -37,11 +37,11 @@ public class MenuAction {
 						System.out.println(file.getPath());
 					}
 					break;
-				case TextGUI.SALIR:
+				case TextMenu.SALIR:
 					Platform.exit();
 					break;
 
-				case TextGUI.MOSTRAR:
+				case TextMenu.MOSTRAR:
 					Display display = new Display();
 					display.start();
 					break;

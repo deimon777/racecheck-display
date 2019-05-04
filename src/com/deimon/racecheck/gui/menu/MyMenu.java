@@ -18,13 +18,13 @@ public class MyMenu {
 		 * Creando las secciones del menú
 		 */
 		Menu archivo = new Menu("_Archivo");
-		MenuItem itmAbrir = new MenuItem(TextGUI.ABRIR);
-		MenuItem itmSalir = new MenuItem(TextGUI.SALIR);
+		MenuItem itmAbrir = new MenuItem(TextMenu.ABRIR);
+		MenuItem itmSalir = new MenuItem(TextMenu.SALIR);
 		
 
 		Menu display= new Menu("_Display");
-		MenuItem itmConfigurar = new MenuItem(TextGUI.CONFIGURAR);
-		MenuItem itmMostrar = new MenuItem(TextGUI.MOSTRAR);
+		MenuItem itmConfigurar = new MenuItem(TextMenu.CONFIGURAR);
+		MenuItem itmMostrar = new MenuItem(TextMenu.MOSTRAR);
 		
 		Menu ayuda = new Menu("A_yuda");
 		MenuItem itmAcerca = new MenuItem("Acerca de");
